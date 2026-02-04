@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logoImage from "../assets/1cbc1581d4749db19e33aadbbabb706fc733038a.png";
+import logoImage from "../assets/logophoneix.png";
 
 type Page = "home" | "about" | "courses" | "admissions" | "gallery" | "contact";
 

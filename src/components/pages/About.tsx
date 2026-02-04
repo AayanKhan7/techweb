@@ -1,6 +1,6 @@
 import { Award, Users, Target, Eye, Heart } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import logoImage from "../../assets/1cbc1581d4749db19e33aadbbabb706fc733038a.png";
+import logoImage from "../../assets/logophoneix.png";
 
 export function About() {
   return (

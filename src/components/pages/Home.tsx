@@ -1,7 +1,7 @@
 import { Award, Users, Clock, BookOpen, Code, Laptop, MessageSquare, GraduationCap } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import logoImage from "../../assets/1cbc1581d4749db19e33aadbbabb706fc733038a.png";
+import logoImage from "../../assets/logophoneix.png";
 
 interface HomeProps {
   onNavigate: (page: "home" | "about" | "courses" | "admissions" | "gallery" | "contact") => void;

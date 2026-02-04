@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail } from "lucide-react";
-import logoImage from "../assets/1cbc1581d4749db19e33aadbbabb706fc733038a.png";
+import logoImage from "../assets/logophoneix.png";
 
 export function Footer() {
   return (
