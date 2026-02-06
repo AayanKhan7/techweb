@@ -1,6 +1,7 @@
 import { Award, Monitor, Code, MessageSquare, Clock, Users, BookOpen, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
+import { useAdmin } from "../../contexts/AdminContext";
 
 type Page = "home" | "about" | "courses" | "admissions" | "gallery" | "contact";
 
@@ -9,108 +10,23 @@ interface CoursesProps {
 }
 
 export function Courses({ onNavigate }: CoursesProps) {
-  const courses = [
-    {
-      title: "MS-CIT",
-      subtitle: "Maharashtra State Certificate in Information Technology",
-      icon: <Award className="w-12 h-12 text-[#C9A24D]" />,
-      duration: "3 Months",
-      target: "Students, Job seekers, Government employees",
-      description: "Government of Maharashtra approved certification program by MKCL. This comprehensive course covers essential computer skills required in today's digital workplace.",
-      highlights: [
-        "Government approved certification",
-        "Recognized by MKCL",
-        "Theory and practical training",
-        "Official examination center",
-        "Certificate valid across Maharashtra",
-        "Mandatory for government jobs"
-      ],
-      syllabus: [
-        "Introduction to Computers",
-        "Windows Operating System",
-        "MS Word - Document Processing",
-        "MS Excel - Spreadsheets",
-        "MS PowerPoint - Presentations",
-        "Internet & Email",
-        "Digital Security"
-      ]
-    },
-    {
-      title: "Basic Computer Course",
-      subtitle: "Foundation Course for Beginners",
-      icon: <Monitor className="w-12 h-12 text-[#C9A24D]" />,
-      duration: "1-2 Months",
-      target: "Complete beginners, School students, Homemakers",
-      description: "Perfect for those starting their computer journey. Learn fundamental concepts and gain confidence in using computers for daily tasks.",
-      highlights: [
-        "No prior knowledge required",
-        "Hands-on practical training",
-        "Learn at your own pace",
-        "Certificate on completion",
-        "Typing speed development",
-        "Real-world applications"
-      ],
-      syllabus: [
-        "Computer Basics & Hardware",
-        "Keyboard & Mouse Usage",
-        "Typing Practice",
-        "File Management",
-        "Internet Browsing",
-        "Email Usage",
-        "Basic MS Office"
-      ]
-    },
-    {
-      title: "Coding Classes for Students",
-      subtitle: "Programming for Young Learners",
-      icon: <Code className="w-12 h-12 text-[#C9A24D]" />,
-      duration: "3-6 Months",
-      target: "Students (Class 6-12)",
-      description: "Introduce your child to the world of programming with age-appropriate courses designed to build logical thinking and problem-solving skills.",
-      highlights: [
-        "Age-appropriate curriculum",
-        "Visual programming with Scratch",
-        "Web development basics",
-        "Python programming",
-        "Project-based learning",
-        "Creative and logical thinking"
-      ],
-      syllabus: [
-        "Scratch Programming (Beginners)",
-        "HTML & CSS Basics",
-        "JavaScript Introduction",
-        "Python Fundamentals",
-        "Game Development Concepts",
-        "Project Work",
-        "Problem Solving"
-      ]
-    },
-    {
-      title: "English Speaking Course",
-      subtitle: "Communicate with Confidence",
-      icon: <MessageSquare className="w-12 h-12 text-[#C9A24D]" />,
-      duration: "Flexible Duration",
-      target: "All age groups, Students, Professionals",
-      description: "Improve your English speaking skills, build confidence, and enhance your communication abilities for personal and professional growth.",
-      highlights: [
-        "Grammar fundamentals",
-        "Spoken English practice",
-        "Vocabulary building",
-        "Confidence development",
-        "Interactive sessions",
-        "Personality development"
-      ],
-      syllabus: [
-        "Basic Grammar Rules",
-        "Vocabulary Enhancement",
-        "Pronunciation Practice",
-        "Sentence Formation",
-        "Conversation Skills",
-        "Public Speaking Basics",
-        "Interview Preparation"
-      ]
+  const { courses } = useAdmin();
+
+  const getIcon = (iconType: string) => {
+    const iconClass = "w-12 h-12 text-[#C9A24D]";
+    switch (iconType) {
+      case "Award":
+        return <Award className={iconClass} />;
+      case "Monitor":
+        return <Monitor className={iconClass} />;
+      case "Code":
+        return <Code className={iconClass} />;
+      case "MessageSquare":
+        return <MessageSquare className={iconClass} />;
+      default:
+        return <Award className={iconClass} />;
     }
-  ];
+  };
 
   return (
     <div className="min-h-screen">
@@ -131,13 +47,13 @@ export function Courses({ onNavigate }: CoursesProps) {
       {/* Courses List */}
       <section className="py-8 sm:py-12 md:py-16 bg-[#F7F8FA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
-          {courses.map((course, index) => (
-            <Card key={index} className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow">
+          {courses.map((course) => (
+            <Card key={course.id} className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="border-b border-gray-100">
                 <div className="flex flex-col md:flex-row md:items-start gap-4 sm:gap-6">
                   <div className="flex-shrink-0">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-                      {course.icon}
+                      {getIcon(course.iconType)}
                     </div>
                   </div>
                   <div className="flex-1">

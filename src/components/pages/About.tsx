@@ -1,4 +1,4 @@
-import { Award, Users, Target, Eye, Heart } from "lucide-react";
+import { Award, Target, Eye, Heart } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import logoImage from "../../assets/logophoneix.png";
 

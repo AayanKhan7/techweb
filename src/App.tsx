@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AdminProvider } from "./contexts/AdminContext";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./components/pages/Home";
@@ -7,42 +8,53 @@ import { Courses } from "./components/pages/Courses";
 import { Admissions } from "./components/pages/Admissions";
 import { Gallery } from "./components/pages/Gallery";
 import { Contact } from "./components/pages/Contact";
+import { AdminPanel } from "./components/admin/AdminPanel";
 
-type Page = "home" | "about" | "courses" | "admissions" | "gallery" | "contact";
+// Export the Page type so it can be used in other files to fix TS errors
+export type Page = "home" | "about" | "courses" | "admissions" | "gallery" | "contact" | "admin";
 
-export default function App() {
+function App() {
   const [currentPage, setCurrentPage] = useState<Page>("home");
-
-  const handleNavigate = (page: Page) => {
-    setCurrentPage(page);
-  };
 
   const renderPage = () => {
     switch (currentPage) {
-      case "home":
-        return <Home onNavigate={handleNavigate} />;
-      case "about":
+      case "home": 
+        return <Home onNavigate={setCurrentPage} />;
+      case "about": 
         return <About />;
-      case "courses":
-        return <Courses onNavigate={handleNavigate} />;
-      case "admissions":
+      case "courses": 
+        return <Courses onNavigate={setCurrentPage} />;
+      case "admissions": 
         return <Admissions />;
-      case "gallery":
+      case "gallery": 
         return <Gallery />;
-      case "contact":
+      case "contact": 
         return <Contact />;
-      default:
-        return <Home onNavigate={handleNavigate} />;
+      case "admin": 
+        return <AdminPanel />;
+      default: 
+        return <Home onNavigate={setCurrentPage} />;
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} />
-      <main className="flex-1">
-        {renderPage()}
-      </main>
-      <Footer />
-    </div>
+    <AdminProvider>
+      <div className="flex flex-col min-h-screen">
+        {/* Hide main navigation when inside the Admin Panel */}
+        {currentPage !== "admin" && (
+          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
+        )}
+        
+        <main className="flex-grow">
+          {renderPage()}
+        </main>
+
+        {currentPage !== "admin" && (
+          <Footer />
+        )}
+      </div>
+    </AdminProvider>
   );
 }
+
+export default App;

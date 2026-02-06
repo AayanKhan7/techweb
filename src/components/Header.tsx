@@ -1,8 +1,8 @@
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 import { useState } from "react";
 import logoImage from "../assets/logophoneix.png";
 
-type Page = "home" | "about" | "courses" | "admissions" | "gallery" | "contact";
+type Page = "home" | "about" | "courses" | "admissions" | "gallery" | "contact" | "admin";
 
 interface HeaderProps {
   currentPage: Page;
@@ -52,7 +52,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-1 xl:space-x-2">
+          <nav className="hidden lg:flex space-x-1 xl:space-x-2 items-center">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -66,6 +66,19 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
                 {item.name}
               </button>
             ))}
+            {/* Admin Button */}
+            <button
+              onClick={() => handleNavigate("admin")}
+              className={`ml-2 px-3 xl:px-4 py-2 rounded-lg transition-colors text-sm xl:text-base flex items-center gap-2 ${
+                currentPage === "admin"
+                  ? "bg-red-600 text-white"
+                  : "text-[#0F0F12] hover:bg-red-100 border-2 border-red-600"
+              }`}
+              title="Admin Panel"
+            >
+              <LogIn className="w-4 h-4" />
+              Admin
+            </button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -97,6 +110,18 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
                 {item.name}
               </button>
             ))}
+            {/* Mobile Admin Button */}
+            <button
+              onClick={() => handleNavigate("admin")}
+              className={`block w-full text-left px-4 py-2.5 sm:py-3 rounded-lg transition-colors text-sm sm:text-base flex items-center gap-2 font-semibold ${
+                currentPage === "admin"
+                  ? "bg-red-600 text-white"
+                  : "text-[#0F0F12] hover:bg-red-100 border-2 border-red-600"
+              }`}
+            >
+              <LogIn className="w-4 h-4" />
+              Admin Panel
+            </button>
           </nav>
         )}
       </div>

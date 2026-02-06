@@ -1,4 +1,8 @@
+import { useAdmin } from "../../contexts/AdminContext";
+
 export function Gallery() {
+  const { gallery } = useAdmin();
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -18,18 +22,37 @@ export function Gallery() {
       {/* Gallery Grid */}
       <section className="py-8 sm:py-12 md:py-16 bg-[#F7F8FA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {Array.from({ length: 9 }).map((_, index) => (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all aspect-[4/3] bg-white border border-gray-200"
-              >
-                <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm sm:text-base">
-                  Gallery Image Placeholder
+          {gallery.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {gallery.map((image) => (
+                <div
+                  key={image.id}
+                  className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all bg-white"
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={image.url}
+                      alt={image.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-[#0F0F12] mb-1">{image.title}</h3>
+                    <div className="flex items-center justify-between">
+                      <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold capitalize">
+                        {image.category}
+                      </span>
+                      <span className="text-xs text-gray-500">{image.uploadedAt}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">No images in gallery yet. Check back soon!</p>
+            </div>
+          )}
         </div>
       </section>
 
